@@ -239,32 +239,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\EtecHAS\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Ednelson\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\2DS\\DS\\RpgMvc\\RpgMvc.csproj",
+      "projectUniqueName": "C:\\Users\\Ednelson\\Desktop\\RpgMvc\\RpgMvc.csproj",
       "projectName": "RpgMvc",
-      "projectPath": "D:\\2DS\\DS\\RpgMvc\\RpgMvc.csproj",
-      "packagesPath": "C:\\Users\\EtecHAS\\.nuget\\packages\\",
-      "outputPath": "D:\\2DS\\DS\\RpgMvc\\obj\\",
+      "projectPath": "C:\\Users\\Ednelson\\Desktop\\RpgMvc\\RpgMvc.csproj",
+      "packagesPath": "C:\\Users\\Ednelson\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ednelson\\Desktop\\RpgMvc\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\EtecHAS\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Ednelson\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -307,7 +300,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
