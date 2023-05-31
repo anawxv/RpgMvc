@@ -7,6 +7,7 @@ using RpgMvc.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
+using System.Linq;
 
 namespace RpgMvc.Controllers
 {
@@ -58,15 +59,15 @@ namespace RpgMvc.Controllers
                 HttpResponseMessage response = await httpClient.PostAsync(uriBase, content);
                 string serialized = await response.Content.ReadAsStringAsync();
 
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
 
                 {
-                        TempData["Mensagem"] = string.Format("Personagem {0}, id {1} salvo com sucesso!", p.Nome, serialized);
-                        return RedirectToAction("Index");
+                    TempData["Mensagem"] = string.Format("Personagem {0}, id {1} salvo com sucesso!", p.Nome, serialized);
+                    return RedirectToAction("Index");
 
                 }
-                else 
-                throw new System.Exception(serialized);
+                else
+                    throw new System.Exception(serialized);
             }
             catch (System.Exception ex)
             {
@@ -82,7 +83,7 @@ namespace RpgMvc.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DetailsAsync(int?id)
+        public async Task<ActionResult> DetailsAsync(int? id)
         {
             try
             {
@@ -98,8 +99,8 @@ namespace RpgMvc.Controllers
                     JsonConvert.DeserializeObject<PersonagemViewModel>(serialized));
                     return View(p);
                 }
-                else 
-                throw new System.Exception(serialized);
+                else
+                    throw new System.Exception(serialized);
             }
             catch (System.Exception ex)
             {
@@ -108,9 +109,9 @@ namespace RpgMvc.Controllers
             }
         }
         [HttpGet]
-        public async Task<ActionResult> EditAsync (int? id)
+        public async Task<ActionResult> EditAsync(int? id)
         {
-            try 
+            try
             {
                 HttpClient httpClient = new HttpClient();
                 string token = HttpContext.Session.GetString("SessionTokenUsuario");
@@ -126,8 +127,8 @@ namespace RpgMvc.Controllers
                     JsonConvert.DeserializeObject<PersonagemViewModel>(serialized));
                     return View(p);
                 }
-                else 
-                throw new System.Exception(serialized);
+                else
+                    throw new System.Exception(serialized);
 
             }
             catch (System.Exception ex)
@@ -138,35 +139,35 @@ namespace RpgMvc.Controllers
         }
 
 
-    [HttpPost]
-    public async Task<ActionResult> EditAsync(PersonagemViewModel p)
-    {
-        try
+        [HttpPost]
+        public async Task<ActionResult> EditAsync(PersonagemViewModel p)
+        {
+            try
             {
-            HttpClient httpClient = new HttpClient();
-            string token = HttpContext.Session.GetString("SessionTokenUsuario");
+                HttpClient httpClient = new HttpClient();
+                string token = HttpContext.Session.GetString("SessionTokenUsuario");
 
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var content = new StringContent(JsonConvert.SerializeObject(p));
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var content = new StringContent(JsonConvert.SerializeObject(p));
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            HttpResponseMessage response = await httpClient.PutAsync(uriBase, content);
-            string serialized = await response.Content.ReadAsStringAsync();
+                HttpResponseMessage response = await httpClient.PutAsync(uriBase, content);
+                string serialized = await response.Content.ReadAsStringAsync();
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                TempData["Mensagem"] =
-                    string.Format("Personagem {0}, classe {1} atualizado com sucesso!", p.Nome, p.Classe);
+                    TempData["Mensagem"] =
+                        string.Format("Personagem {0}, classe {1} atualizado com sucesso!", p.Nome, p.Classe);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
-            else 
-            throw new System.Exception(serialized);
+                else
+                    throw new System.Exception(serialized);
             }
             catch (System.Exception ex)
             {
-            TempData["MensagemErro"] = ex.Message;
-            return RedirectToAction("Index");
+                TempData["MensagemErro"] = ex.Message;
+                return RedirectToAction("Index");
             }
         }
 
@@ -198,29 +199,26 @@ namespace RpgMvc.Controllers
             }
         }
 
+       
         [HttpGet]
-        public async Task<ActionResult> DisputaGeralAsync()
+        public async Task<ActionResult> ZerarRankingRestaurarVidasAsync()
         {
             try
             {
                 HttpClient httpClient = new HttpClient();
-
                 string token = HttpContext.Session.GetString("SessionTokenUsuario");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                string uriBuscaPersonagens = "http://ANAVIEIRA.somee.com/RpgApi/Personagens/GetAll";
-                HttpResponseMessage response = await httpClient.GetAsync(uriBuscaPersonagens);
-
+                string uriComplementar = "ZerarRankingRestaurarVidas";
+                HttpResponseMessage response = await httpClient.PutAsync(uriBase + uriComplementar, null);
                 string serialized = await response.Content.ReadAsStringAsync();
-
-                List<PersonagemViewModel> listaPersonagens = await Task.Run(() => JsonConvert.DeserializeObject<List<PersonagemViewModel>>(serialized));
-                return RedirectToAction("Index", "Personagens");
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    TempData["Mensagem"] = "Rankings zerados e vidas dos personagens restauradas com sucesso.";
+                    else
+                    throw new System.Exception(serialized);
             }
             catch (System.Exception ex)
-            {
-                TempData["MensagemErro"] = ex.Message;
-                return RedirectToAction("Index", "Personagens");
-            }
+            { TempData["MensagemErro"] = ex.Message; }
+            return RedirectToAction("Index");
         }
     }
 }
