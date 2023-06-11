@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using RpgMvc.Models;
 using System.Net.Http.Headers;
+using RpgMvc.Models;
 using Newtonsoft.Json;
+using RpgMvc.Models.Enuns;
 
 namespace RpgMvc.Controllers
 {
@@ -15,16 +16,17 @@ namespace RpgMvc.Controllers
             try
             {
                 HttpClient httpClient = new HttpClient();
-                string token = HttpContext.Session.GetString("SessionTokenUsuario");
+                string token =  HttpContext.Session.GetString("SessionTokenUsuario");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
+                
                 HttpResponseMessage response = await httpClient.GetAsync(uriBase + id.ToString());
                 string serialized = await response.Content.ReadAsStringAsync();
-
+            
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    List<PersonagemHabilidadesViewModel> lista = await Task.Run(() => JsonConvert.DeserializeObject<List<PersonagemHabilidadesViewModel>>(serialized));
-
+                    List<PersonagemHabilidadesViewModel> lista = await Task.Run(() => 
+                        JsonConvert.DeserializeObject<List<PersonagemHabilidadesViewModel>>(serialized));
+                    
                     return View(lista);
                 }
                 else
@@ -43,8 +45,8 @@ namespace RpgMvc.Controllers
             try
             {
                 HttpClient httpClient = new HttpClient();
-                string uriComplementar = "DeletePersonagemHabilidade";
-                string token = HttpContext.Session.GetString("SessionTokenUsuario");
+                string uriComplementar = "DeletePerosnagemHabilidade";
+                string token =  HttpContext.Session.GetString("SessionTokenUsuario");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 PersonagemHabilidadesViewModel ph = new PersonagemHabilidadesViewModel();
@@ -67,20 +69,20 @@ namespace RpgMvc.Controllers
             }
             return RedirectToAction("Index", new {Id = personagemId});
         }
-
         [HttpGet]
         public async Task<ActionResult> CreateAsync(int id, string nome)
         {
             try
             {
-                string  uriComplementar = "GetHabilidades";
+                string uriComplentar = "GetHabilidades";
                 HttpClient httpClient = new HttpClient();
                 string token = HttpContext.Session.GetString("SessionTokenUsuario");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await httpClient.GetAsync(uriBase + uriComplementar);
+                HttpResponseMessage response = await httpClient.GetAsync(uriBase + uriComplentar);
 
                 string serialized = await response.Content.ReadAsStringAsync();
-                List<HabilidadeViewModel> habilidades = await Task.Run(() => JsonConvert.DeserializeObject<List<HabilidadeViewModel>>(serialized));
+                List<HabilidadeViewModel> habilidades = await Task.Run(() =>
+                    JsonConvert.DeserializeObject<List<HabilidadeViewModel>>(serialized));
                 ViewBag.ListaHabilidades = habilidades;
 
                 PersonagemHabilidadesViewModel ph = new PersonagemHabilidadesViewModel();
@@ -94,7 +96,8 @@ namespace RpgMvc.Controllers
             catch (System.Exception ex)
             {
                 TempData["MensagemErro"] = ex.Message;
-                return RedirectToAction("Create", new { id, nome });
+                //return RedirectToAction("Create", new { id, nome });
+                return RedirectToAction("Index", "Personagens");
             }
         }
 
@@ -106,14 +109,14 @@ namespace RpgMvc.Controllers
                 HttpClient httpClient = new HttpClient();
                 string token = HttpContext.Session.GetString("SessionTokenUsuario");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
+                
                 var content = new StringContent(JsonConvert.SerializeObject(ph));
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 HttpResponseMessage response = await httpClient.PostAsync(uriBase, content);
                 string serialized = await response.Content.ReadAsStringAsync();
-
+                
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    TempData["Mensagem"] = "Habilidade cadastrada com sucesso";
+                    TempData["Mensagem"] = "Habilidade adicionada com sucesso";
                 else
                     throw new System.Exception(serialized);
             }

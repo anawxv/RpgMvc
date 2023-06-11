@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Create";
 }
+
+
+
 <h2>Cadastro de Habilidade para @Model.Personagem.Nome </h2>
 @using (Html.BeginForm())
 {
@@ -9,22 +12,22 @@
     <div class="form-horizontal">
         <hr />
         <div class="form-group">
-            @Html.LabelFor(model => model.Personagem.Id, htmlAttributes: new { @class = "control-label col-md-2" }) <div
-                class="col-md-6">
-                @Html.EditorFor(model => model.PersonagemId, new { htmlAttributes = new { @class = "formcontrol", @readonly
-            = "readonly" } })
+            @Html.LabelFor(model => model.Personagem.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.PersonagemId, new { htmlAttributes = new { @class = "formcontrol",
+            @readonly = "readonly" } })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Personagem, htmlAttributes: new { @class = "control-label col-md-2" }) <div
-                class="col-md-6">
+            @Html.LabelFor(model => model.Personagem, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.Personagem.Nome, new { htmlAttributes = new { @class = "formcontrol",
             @readonly = "readonly" } })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Habilidade, htmlAttributes: new { @class = "control-label col-md-2" }) <div
-                class="col-md-6">
+            @Html.LabelFor(model => model.Habilidade, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
                 @Html.DropDownListFor(model => model.HabilidadeId, new SelectList(@ViewBag.ListaHabilidades, "Id", "Nome"),
             "---Selecione---", new { @class = "form-control" })
             </div>

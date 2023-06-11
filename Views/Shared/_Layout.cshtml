@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -21,22 +21,18 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        </li> 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Personagens" asp-action="Index">Personagens</a>
-                        </li>
+                        </li> 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Disputas" asp-action="IndexDisputas">Disputas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Armas" asp-action="IndexArmas">Armas</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Armas" asp-action="Index">Armas</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        
                     </ul>
-                    <partial name="_LoginPartialRpg"></partial>
+                    <partial name="_LoginPartialRpg"/>
                 </div>
             </div>
         </nav>
@@ -58,3 +54,13 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<!--<li>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Disputas" asp-action="Index">CombateArmas</a>
+</li> 
+<li>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Disputas" asp-action="IndexHabilidades">CombateHabilidades</a>
+</li> 
+<li>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Disputas" asp-action="DisputaGeral">CombateGeral</a>
+</li>-->
